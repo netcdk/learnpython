@@ -37,11 +37,12 @@ def greedy_boss(days_in_simulation, bribe_cost_increment, plot_type = STANDARD):
         
         # check whether we have enough savings to bribe without waiting
         # advance current_day to day of next bribe (DO NOT INCREMENT BY ONE DAY)
-        while current_earnings < current_bribe_cost:
-            current_day += 1
-            current_earnings += current_salary 
-            total_earnings += current_salary
-            if (current_day == days_in_simulation):
+        if current_earnings < current_bribe_cost:
+            days_to_bribe = math.ceil(float(current_bribe_cost - current_earnings) / float(current_salary))
+            current_day += days_to_bribe
+            current_earnings += days_to_bribe * current_salary 
+            total_earnings += days_to_bribe * current_salary
+            if (current_day > days_in_simulation):
                 return days_vs_earnings
 
         
@@ -53,9 +54,9 @@ def greedy_boss(days_in_simulation, bribe_cost_increment, plot_type = STANDARD):
         # update list with days vs total salary earned for most recent bribe
         # use plot_type to control whether regular or log/log plot
         if plot_type == STANDARD:
-            days_vs_earnings.append((current_day, total_earnings))
+            days_vs_earnings.append((int(current_day), int(total_earnings)))
         else:
-            days_vs_earnings.append([math.log(current_day), math.log(total_earnings)])
+            days_vs_earnings.append([math.log(int(current_day)), math.log(int(total_earnings))])
         
    
     return days_vs_earnings
@@ -77,7 +78,7 @@ def run_simulations():
                           "Bribe increment = 1000", "Bribe increment = 2000"])
 
 
-run_simulations()
+#run_simulations()
 
 #print greedy_boss(35, 100)
 # should print [(0, 0), (10, 1000), (16, 2200), (20, 3400), (23, 4600), (26, 6100), (29, 7900), (31, 9300), (33, 10900), (35, 12700), (37, 14700)]
