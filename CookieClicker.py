@@ -197,7 +197,7 @@ def strategy_cheap(cookies, cps, history, time_left, build_info):
             cheapest_cost = item_cost
             item_to_purchase = item
     
-    if cheapest_cost == float("inf"):
+    if cheapest_cost is float("inf"):
         return None
     else:
         return item_to_purchase
@@ -214,7 +214,7 @@ def strategy_expensive(cookies, cps, history, time_left, build_info):
             highest_cost = item_cost
             item_to_purchase = item
     
-    if highest_cost == 0.0:
+    if highest_cost is 0.0:
         return None
     else:
         return item_to_purchase
