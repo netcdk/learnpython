@@ -1,12 +1,8 @@
 """
 Algorithmic Thinking P1
-Degree Distributions for Graphs
+Degree Distributions for Graphs (ALT CODE)
 Written by netcdk on codeskulptor.org
 """
-
-# General imports
-import codeskulptor
-import collections
 
 # Three graph constants, as examples
 EX_GRAPH0 = {0: set([1, 2]),
@@ -58,19 +54,16 @@ def compute_in_degrees(digraph):
     of edges whose head matches a particular node.
     """
     values = []
+    cid = {}
     for key in digraph:
         values += list(digraph[key])
-    cid = collections.Counter(values)
     for key in digraph:
-        if cid.has_key(key):
-            pass
-        else:
-            cid[key] = 0
-    return dict(cid)
+        cid[key] = values.count(key)
+    return cid
     
-print compute_in_degrees(EX_GRAPH0)
-print compute_in_degrees(EX_GRAPH1)
-print compute_in_degrees(EX_GRAPH2)
+#print compute_in_degrees(EX_GRAPH0)
+#print compute_in_degrees(EX_GRAPH1)
+#print compute_in_degrees(EX_GRAPH2)
 
 
 def in_degree_distribution(digraph):
@@ -84,8 +77,17 @@ def in_degree_distribution(digraph):
     corresponding nodes in the graph are not included in the
     dictionary.
     """
-    return dict(collections.Counter((compute_in_degrees(digraph)).values()))
+    #return dict(collections.Counter((compute_in_degrees(digraph)).values()))
+    idd = {}
+    in_degrees = (compute_in_degrees(digraph)).values()
+    for degree in in_degrees:
+        if degree in idd:
+            pass
+        else:
+            idd[degree] = in_degrees.count(degree)
+    return idd
     
-print in_degree_distribution(EX_GRAPH0)
-print in_degree_distribution(EX_GRAPH1)
-print in_degree_distribution(EX_GRAPH2)
+    
+#print in_degree_distribution(EX_GRAPH0)
+#print in_degree_distribution(EX_GRAPH1)
+#print in_degree_distribution(EX_GRAPH2)
