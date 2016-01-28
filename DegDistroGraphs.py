@@ -5,7 +5,6 @@ Written by netcdk on codeskulptor.org
 """
 
 # General imports
-import codeskulptor
 import collections
 
 # Three graph constants, as examples

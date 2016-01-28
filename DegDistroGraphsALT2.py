@@ -57,13 +57,15 @@ def compute_in_degrees(digraph):
     cid = {}
     for key in digraph:
         values += list(digraph[key])
-    for key in digraph:
-        cid[key] = values.count(key)
+        cid[key] = 0
+    
+    for value in values:
+        cid[value] += 1
     return cid
     
-print compute_in_degrees(EX_GRAPH0)
-print compute_in_degrees(EX_GRAPH1)
-print compute_in_degrees(EX_GRAPH2)
+#print compute_in_degrees(EX_GRAPH0)
+#print compute_in_degrees(EX_GRAPH1)
+#print compute_in_degrees(EX_GRAPH2)
 
 
 def in_degree_distribution(digraph):
@@ -88,6 +90,6 @@ def in_degree_distribution(digraph):
     return idd
     
     
-print in_degree_distribution(EX_GRAPH0)
-print in_degree_distribution(EX_GRAPH1)
-print in_degree_distribution(EX_GRAPH2)
+#print in_degree_distribution(EX_GRAPH0)
+#print in_degree_distribution(EX_GRAPH1)
+#print in_degree_distribution(EX_GRAPH2)
