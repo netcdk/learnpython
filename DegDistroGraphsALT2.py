@@ -55,7 +55,7 @@ def compute_in_degrees(digraph):
     """
     values = []
     cid = {}
-    for key in digraph:
+    for key in digraph.keys():
         values += list(digraph[key])
         cid[key] = 0
     
@@ -89,7 +89,51 @@ def in_degree_distribution(digraph):
             idd[degree] = in_degrees.count(degree)
     return idd
     
-    
 #print in_degree_distribution(EX_GRAPH0)
 #print in_degree_distribution(EX_GRAPH1)
 #print in_degree_distribution(EX_GRAPH2)
+    
+    
+def compute_out_degrees(digraph):
+    """
+    Function that takes a directed graph digraph (represented as
+    a dictionary), computes the in-degrees for the nodes in
+    the graph, and returns a dictionary with the same set of keys
+    (nodes) as digraph whose corresponding values are the number
+    of edges whose head matches a particular node.
+    """
+    cod = {}
+    for key in digraph.keys():       
+        cod[key]= len(list(digraph[key]))
+
+    return cod
+
+#print compute_out_degrees(EX_GRAPH0)
+#print compute_out_degrees(EX_GRAPH1)
+#print compute_out_degrees(EX_GRAPH2)
+
+
+def out_degree_distribution(digraph):
+    """
+    Function that takes a directed graph digraph (represented as
+    a dictionary) and computes the unnormalized distribution of
+    the in-degrees of the graph. The function returns a dictionary
+    whose keys correspond to in-degrees of nodes in the graph.
+    The value associated with each particular in-degree is the
+    number of nodes with that in-degree. In-degrees with no
+    corresponding nodes in the graph are not included in the
+    dictionary.
+    """
+    #return dict(collections.Counter((compute_in_degrees(digraph)).values()))
+    odd = {}
+    out_degrees = (compute_out_degrees(digraph)).values()
+    for degree in out_degrees:
+        if degree in odd:
+            pass
+        else:
+            odd[degree] = out_degrees.count(degree)
+    return odd
+    
+#print out_degree_distribution(EX_GRAPH0)
+#print out_degree_distribution(EX_GRAPH1)
+#print out_degree_distribution(EX_GRAPH2)

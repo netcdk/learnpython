@@ -72,14 +72,21 @@ n_cit_idd = normal_idd(cit_idd)
 
 # Function to remove a given element from dictionary
 def remove_elem(dictionary, key):
-    copy_dict = dict(dictionary)
-    del copy_dict[key]
-    return copy_dict
+    if key not in dictionary.keys():
+        return dictionary
+    else:    
+        copy_dict = dict(dictionary)
+        del copy_dict[key]
+        return copy_dict
 
 
 # Remove nodes with in-degree of zero
 nci_nozero = remove_elem(n_cit_idd, 0)
 
+# Calculate average out-degree
+cit_odd = ddg.out_degree_distribution(citation_graph)
+avg_cit_odd = (sum(cit_odd.values()))/(len(cit_odd.values()))
+print "HERE!", avg_cit_odd
 
 # Plot log/log of the points of the normalized distribution
 plt.loglog(nci_nozero.keys(), nci_nozero.values(), linestyle='None', marker=".")
