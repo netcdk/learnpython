@@ -7,53 +7,85 @@ and probability. Graphing, too!
 """
 
 import random
+import RandGraphGen as rgg
 import DegDistroGraphsALT2 as ddg
 import matplotlib.pyplot as plt
 
-class Dir_Graph:
-    def __init__(self, num_nodes, probability):
-        self.nodes = range(num_nodes)        
-        self.prob = probability
-        self.graph = {}
-        for node in self.nodes:
-            self.graph[node] = set([])
+
+class DPATrial:
+    """
+    Simple class to encapsulate optimized trials for DPA algorithm
+    
+    Maintains a list of node numbers with multiple instances of each number.
+    The number of instances of each node number are
+    in the same proportion as the desired probabilities
+    
+    Uses random.choice() to select a node number from this list for each trial.
+    """
+
+    def __init__(self, num_nodes):
+        """
+        Initialize a DPATrial object corresponding to a 
+        complete graph with num_nodes nodes
         
-    def get_prob(self):
-        return self.prob
-    
-    def get_nodes(self):
-        return self.graph.keys()
-    
-    def get_edges(self):
-        return self.graph.values()
-    
-    def get_graph(self):
-        return self.graph
-    
-    def gen_edges(self):
-        for i in self.nodes:
-            for j in self.nodes:               
-                if j == i:
-                    pass
-                else:     
-                    chance = random.random()
-                    if chance < self.prob:
-                        self.graph[i].add(j)
-        return self.graph
+        Note the initial list of node numbers has num_nodes copies of
+        each node number
+        """
+        self._num_nodes = num_nodes     
+        self._node_numbers = [node for node in range(num_nodes) for dummy_idx in range(num_nodes)]   
+   
+   
+    def run_trial(self, num_nodes):
+        """
+        Conduct num_node trials using by applying random.choice()
+        to the list of node numbers
+        
+        Updates the list of node numbers so that the number of instances of
+        each node number is in the same ratio as the desired probabilities
+        
+        Returns:
+        Set of nodes
+        """
+        
+        # compute the neighbors for the newly-created node
+        new_node_neighbors = set()
+        for dummy_idx in range(num_nodes):
+            new_node_neighbors.add(random.choice(self._node_numbers))
+        
+        # update the list of node numbers so that each node number 
+        # appears in the correct ratio
+        self._node_numbers.append(self._num_nodes)
+        self._node_numbers.extend(list(new_node_neighbors))
+        
+        #update the number of nodes
+        self._num_nodes += 1
+        return new_node_neighbors
+        
+        
+def dpa_gen(num_nodes, exist_nodes):
 
-# Test graphs
-#dir_graph1000 = Dir_Graph(10000, .5)
-#dir_graph1000.gen_edges()
+# Generate a fully connected directed graph based on existing nodes input
+    graph_base = rgg.Dir_Graph(exist_nodes, 1)
+    digraph = graph_base.gen_edges()
+    new_graph = digraph.copy()
+    trial = DPATrial(exist_nodes)
+    
+    # Generate and connect additional nodes
+    for new_node in xrange(exist_nodes, num_nodes):  
+        connect = trial.run_trial(exist_nodes)
+        new_graph[new_node] = connect
+    
+    #return direction DPA graph
+    return new_graph
 
-# Function to create DPA graphs, where n is the total number of nodes,
-# and m is size of the the existing cluster (origin, subset of n)
-def DPA(total_nodes, )
-
-
+        
+# Test graphs for DPA
+dpa_graph = dpa_gen(27770, 179)
+#print dpa_graph
 
 # Run in-degree distriubtion on randomly generated graph
-dg1000_idd = ddg.in_degree_distribution(REPLACEME.get_graph())
-
+dpa_idd = ddg.in_degree_distribution(dpa_graph)
+#print dpa_idd
 
 # Function to normalize in-degree distribution
 def normal_idd(idd):
@@ -65,8 +97,8 @@ def normal_idd(idd):
 
 
 # Run in-degree distribution on citation graph data
-n_dg1000_idd = normal_idd(dg1000_idd)
-
+n_dpa_idd = normal_idd(dpa_idd)
+#print n_dpa_idd
 
 # Function to remove a given element from dictionary
 def remove_elem(dictionary, key):
@@ -79,12 +111,12 @@ def remove_elem(dictionary, key):
 
 
 # Remove nodes with in-degree of zero
-ndg1000_nozero = remove_elem(n_dg1000_idd, 0)
-
+dpa_nozero = remove_elem(n_dpa_idd, 0)
+#print dpa_nozero
 
 # Plot log/log of the points of the normalized distribution
-plt.loglog(ndg1000_nozero.keys(), ndg1000_nozero.values(), linestyle='None', marker=".")
+plt.loglog(dpa_nozero.keys(), dpa_nozero.values(), linestyle='None', marker=".")
 plt.xlabel("log10(number of in-degrees)")
 plt.ylabel("log10(normalized distribution of in-degree frequency)")
-plt.title("In-degree distribution of random graph")
-plt.savefig("DPA graph")
+plt.title("In-degree distribution of DPA graph")
+plt.savefig("dpa graph")

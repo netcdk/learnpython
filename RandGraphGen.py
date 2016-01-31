@@ -74,11 +74,11 @@ class Dir_Graph:
         return self.graph
 
 # Test graphs
-dir_graph1000 = Dir_Graph(10000, .5)
-dir_graph1000.gen_edges()
+#dir_graph1000 = Dir_Graph(1000, .5)
+#dir_graph1000.gen_edges()
 
 # Run in-degree distriubtion on randomly generated graph
-dg1000_idd = ddg.in_degree_distribution(dir_graph1000.get_graph())
+#dg1000_idd = ddg.in_degree_distribution(dir_graph1000.get_graph())
 
 
 # Function to normalize in-degree distribution
@@ -91,7 +91,7 @@ def normal_idd(idd):
 
 
 # Run in-degree distribution on citation graph data
-n_dg1000_idd = normal_idd(dg1000_idd)
+#n_dg1000_idd = normal_idd(dg1000_idd)
 
 
 # Function to remove a given element from dictionary
@@ -105,13 +105,13 @@ def remove_elem(dictionary, key):
 
 
 # Remove nodes with in-degree of zero
-ndg1000_nozero = remove_elem(n_dg1000_idd, 0)
+#ndg1000_nozero = remove_elem(n_dg1000_idd, 0)
 
 
 # Plot log/log of the points of the normalized distribution
-plt.loglog(ndg1000_nozero.keys(), ndg1000_nozero.values(), linestyle='None', marker=".")
-plt.xlabel("log10(number of in-degrees)")
-plt.ylabel("log10(normalized distribution of in-degree frequency)")
-plt.title("In-degree distribution of random graph")
-plt.savefig("random directed graph")
+#plt.loglog(ndg1000_nozero.keys(), ndg1000_nozero.values(), linestyle='None', marker=".")
+#plt.xlabel("log10(number of in-degrees)")
+#plt.ylabel("log10(normalized distribution of in-degree frequency)")
+#plt.title("In-degree distribution of random graph")
+#plt.savefig("random directed graph")
 

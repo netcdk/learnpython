@@ -59,9 +59,10 @@ def compute_in_degrees(digraph):
         values += list(digraph[key])
         cid[key] = 0
     
-    for value in values:
+    for value in values:     
         cid[value] += 1
     return cid
+
     
 #print compute_in_degrees(EX_GRAPH0)
 #print compute_in_degrees(EX_GRAPH1)
