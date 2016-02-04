@@ -80,7 +80,7 @@ def dpa_gen(num_nodes, exist_nodes):
 
         
 # Test graphs for DPA
-dpa_graph = dpa_gen(27770, 179)
+dpa_graph = dpa_gen(27770, 13)
 #print dpa_graph
 
 # Run in-degree distriubtion on randomly generated graph
