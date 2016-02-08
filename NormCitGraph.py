@@ -84,10 +84,10 @@ def remove_elem(dictionary, key):
 nci_nozero = remove_elem(n_cit_idd, 0)
 
 # Calculate average out-degree
-cit_odd = ddg.out_degree_distribution(citation_graph)
-print sum(cit_odd.values())
-print len(cit_odd.values())
-avg_cit_odd = (sum(cit_odd.values()))/(len(cit_odd.values()))
+odegrees = ddg.compute_out_degrees(citation_graph)
+print sum(odegrees.values())
+print len(odegrees.values())
+avg_cit_odd = (sum(odegrees.values()))/(len(odegrees.values()))
 print "HERE!", avg_cit_odd
 
 # Plot log/log of the points of the normalized distribution
